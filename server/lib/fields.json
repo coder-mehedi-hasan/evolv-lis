@@ -1,0 +1,424 @@
+[
+    {
+        "name": "messageHeader",
+        "prefix": "H",
+        "delimiter": "|",
+        "description": "Message Header Record",
+        "elements": [
+            {
+                "name": "delimiter",
+                "value": "\\^&",
+                "description": "Delimiters"
+            },
+            {
+                "name": null,
+                "description": "Message Control ID"
+            },
+            {
+                "name": null,
+                "description": "Instrument Password"
+            },
+            {
+                "name": "sender",
+                "delimiter": "^",
+                "description": "Sender Info",
+                "elements": [
+                    {
+                        "name": "sender_name_id",
+                        "description": "Sender Name or ID"
+                    },
+                    {
+                        "name": "system_id",
+                        "description": "System ID"
+                    }
+                ]
+            },
+            {
+                "name": null,
+                "description": "Sender Street Address"
+            },
+            {
+                "name": null,
+                "description": "Reserved Field"
+            },
+            {
+                "name": null,
+                "description": "Sender Telephone Number"
+            },
+            {
+                "name": null,
+                "description": "Characteristics of Sender"
+            },
+            {
+                "name": "receiver",
+                "delimiter": "^",
+                "description": "Receiver",
+                "elements": [
+                    {
+                        "name": "receiver_id",
+                        "description": "Receiver ID"
+                    },
+                    {
+                        "name": "system_id",
+                        "description": "System ID"
+                    }
+                ]
+            },
+            {
+                "name": null,
+                "description": "Comment or Special Instructions"
+            },
+            {
+                "name": "processing_id",
+                "description": "Processing ID"
+            },
+            {
+                "name": "version",
+                "description": "Version Number"
+            },
+            {
+                "name": "date_time_message",
+                "description": "Date and Time of Message"
+            }
+        ]
+    },
+    {
+        "name": "patientInfo",
+        "prefix": "P",
+        "delimiter": "|",
+        "description": "Patient Information record",
+        "elements": [
+            {
+                "name": "patient_id",
+                "description": "Practice Assigned Patient ID"
+            },
+            {
+                "name": null,
+                "description": "Laboratory Assigned Patient ID"
+            },
+            {
+                "name": null,
+                "description": "Patient ID"
+            },
+            {
+                "name": "patient_name",
+                "delimiter": "^",
+                "description": "Patient Name Information",
+                "elements": [
+                    {
+                        "name": "last_name",
+                        "description": "Last Name"
+                    },
+                    {
+                        "name": "first_name",
+                        "description": "First Name"
+                    },
+                    {
+                        "name": "middle_name",
+                        "description": "Middle Name"
+                    },
+                    {
+                        "name": "suffix",
+                        "description": "Suffix"
+                    },
+                    {
+                        "name": "title",
+                        "description": "Title"
+                    }
+                ]
+            },
+            {
+                "name": null,
+                "description": "Mother's Maiden Name"
+            },
+            {
+                "name": "birth_date",
+                "description": "Birth Date"
+            },
+            {
+                "name": "sex",
+                "description": "Patient Sex"
+            },
+            {
+                "name": null,
+                "description": "Patient Race"
+            },
+            {
+                "name": null,
+                "description": "Patient Address"
+            },
+            {
+                "name": null,
+                "description": "Reserved Field"
+            },
+            {
+                "name": null,
+                "description": "Patient Telephone"
+            },
+            {
+                "name": "attending_physician",
+                "description": "Attending Physician ID"
+            },
+            {
+                "name": null,
+                "description": "Special Field #1"
+            },
+            {
+                "name": null,
+                "description": "Special Field #2"
+            },
+            {
+                "name": null,
+                "description": "Patient Height"
+            },
+            {
+                "name": null,
+                "description": "Patient Weight"
+            },
+            {
+                "name": null,
+                "description": "Patient Diagnosis"
+            },
+            {
+                "name": null,
+                "description": "Patient Medications"
+            },
+            {
+                "name": null,
+                "description": "Patient Diet"
+            },
+            {
+                "name": null,
+                "description": "Practice Field #1"
+            },
+            {
+                "name": null,
+                "description": "Practice Field #2"
+            },
+            {
+                "name": null,
+                "description": "Admission and Discharge Dates"
+            },
+            {
+                "name": null,
+                "description": "Admission Status"
+            },
+            {
+                "name": null,
+                "description": "Location"
+            },
+            {
+                "name": null,
+                "description": "Nature of Alt. Diagnostic Code & Classification"
+            },
+            {
+                "name": null,
+                "description": "Alternate Diagnostic Code & Classification"
+            },
+            {
+                "name": null,
+                "description": "Patient Religion"
+            },
+            {
+                "name": null,
+                "description": "Marital Status"
+            },
+            {
+                "name": null,
+                "description": "Isolation Status"
+            },
+            {
+                "name": null,
+                "description": "Hospital Service"
+            },
+            {
+                "name": null,
+                "description": "Hospital Institution"
+            },
+            {
+                "name": null,
+                "description": "Dosage Category"
+            }
+        ]
+    },
+    {
+        "name": "testOrder",
+        "prefix": "O",
+        "description": "Test Order record",
+        "delimiter": "|",
+        "elements": [
+            {
+                "name": "specimen_id",
+                "description": "Specimen ID"
+            },
+            {
+                "delimiter": "^",
+                "description": "Instrument Specimen ID",
+                "name": "instrument_specimen",
+                "elements": [
+                    {
+                        "name": null,
+                        "description": "Sample Tag"                    },
+                    {
+                        "name": null,
+                        "description": "Rack Number"
+                    },
+                    {
+                        "name": null,
+                        "description": "Sample Position"
+                    }
+                ]
+            },
+            {
+                "delimiter": "^",
+                "description": "Universal Test ID",
+                "name": "universal_test",
+                "elements": [
+                    {
+                        "name": null,
+                        "description": "Identifier"
+                    },
+                    {
+                        "name": null,
+                        "description": "Name"
+                    },
+                    {
+                        "name": null,
+                        "description": "Type"
+                    },
+                    {
+                        "name": "local_code_test",
+                        "description": "Local Code: Test"
+                    },
+                    {
+                        "name": null,
+                        "description": "Local Code: Replicate"
+                    }
+                ]
+            },
+            {
+                "name": "priority",
+                "description": "Priority"
+            },
+            {
+                "name": null,
+                "description": "Requested Date and Time"
+            },
+            {
+                "name": null,
+                "description": "Collection End Time"
+            },
+            {
+                "name": null,
+                "description": "Collection Volume"
+            },
+            {
+                "name": null,
+                "description": "Collector ID"
+            },
+            {
+                "name": "action_code",
+                "description": "Action Code"
+            },
+            {
+                "name": null,
+                "description": "Danger Code"
+            },
+            {
+                "name": null,
+                "description": "Relevant Clinical Information"
+            },
+            {
+                "name": null,
+                "description": "Date and Time Specimen Received"
+            },
+            {
+                "name": "specimen_descriptor",
+                "description": "Specimen Descriptor",
+                "elements": [
+                    {
+                        "name": "specimen_type",
+                        "description": "Specimen Type"
+                    },
+                    {
+                        "name": null,
+                        "description": "Specimen Source"
+                    }
+                ],
+                "delimiter": "^"
+            },
+            {
+                "name": null,
+                "description": "Ordering Physician"
+            },
+            {
+                "name": null,
+                "description": "Physician's Phone Number"
+            },
+            {
+                "name": null,
+                "description": "User Field #1"
+            },
+            {
+                "name": null,
+                "description": "User Field #2"
+            },
+            {
+                "name": null,
+                "description": "Laboratory Field #2"
+            },
+            {
+                "name": null,
+                "description": "Laboratory Field #2"
+            },
+            {
+                "name": null,
+                "description": "Date/Time Results Reported/Modified"
+            },
+            {
+                "name": null,
+                "description": "Instrument Charge to Computer System"
+            },
+            {
+                "name": null,
+                "description": "Instrument Section ID"
+            },
+            {
+                "name": null,
+                "description": "Report Types"
+            },
+            {
+                "name": null,
+                "description": "Reserved Field"
+            },
+            {
+                "name": null,
+                "description": "Local Specimen Collection"
+            },
+            {
+                "name": null,
+                "description": "Noscomial Infection Flag"
+            },
+            {
+                "name": null,
+                "description": "Specimen Service"
+            },
+            {
+                "name": null,
+                "description": "Specimen Institution"
+            }
+        ]
+    },
+    {
+        "name": "messageTerminator",
+        "prefix": "L",
+        "delimiter": "|",
+        "description": "Message Terminator record",
+        "elements": [
+            {
+                "name": "termination_code",
+                "description": "Termination Code"
+            }
+        ]
+    }
+]

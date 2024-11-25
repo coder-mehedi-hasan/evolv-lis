@@ -1,6 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import exposeContexts from '../renderer/src/helpers/ipc/context-exposer';
+// import exposeContexts from '../renderer/src/';
+import { server } from '../../server';
+import Order from '../../server/lib/order';
+const order: Order = new Order();
+
 
 // Custom APIs for renderer
 const api = {
@@ -17,7 +21,7 @@ const api = {
   // Listen for incoming data
   onReceiveData: (callback: (data: string) => void) => {
     ipcRenderer.on('serial-data', (_event, data) => {
-      // order.report.add(data);
+      order.report.add(data);
       console.log("Data", data)
       // receiveMessageToServer(data);
       callback(data)
@@ -47,4 +51,5 @@ if (process.contextIsolated) {
 }
 
 
-exposeContexts();
+// exposeContexts();
+server()

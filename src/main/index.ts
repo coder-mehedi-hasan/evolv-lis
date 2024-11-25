@@ -3,6 +3,8 @@ import { ReadlineParser } from '@serialport/parser-readline'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { SerialPort } from 'serialport'
+require('dotenv').config();
+
 
 
 
