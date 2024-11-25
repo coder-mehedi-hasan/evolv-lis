@@ -1,4 +1,3 @@
-import DragWindowRegion from "@renderer/components/DragWindowRegion";
 import NavigationMenu from "@renderer/components/NavigationMenu";
 import React from "react";
 

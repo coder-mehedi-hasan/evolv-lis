@@ -2,7 +2,7 @@ export const rabbitmqInfo = {
     queue: "order",
     exchange: 'order_exchange',
     routing: "order_key",
-    connectionKey: process.env.VITE_APP_MESSAGE_BROKER_RABBIT,
+    connectionKey: "amqp://localhost:5672",
     order: {
         queue: "order",
         exchange: 'order_exchange',

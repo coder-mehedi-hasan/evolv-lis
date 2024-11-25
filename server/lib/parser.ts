@@ -38,7 +38,7 @@ export class Parser {
             const strHl7 = hl7.trim();
             const hl7Msgs = strHl7.split("\n");
 
-            const objResponse = hl7Msgs.reduce((prev: any, currMsg, idx) => {
+            const objResponse = hl7Msgs.reduce((prev: any, currMsg) => {
                 const msgPrefix = currMsg.slice(0, 1);
                 const findField = hl7Fields.find((field: any) => field.prefix === msgPrefix);
                 const splitedMsg = currMsg.trim().split("|");//findField?.delimiter
