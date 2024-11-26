@@ -135,7 +135,7 @@ export default function Component() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <main className="flex-grow container mx-auto p-4 flex flex-col lg:flex-row gap-6">
         <div className="lg:w-1/3 space-y-4">
           <div className="flex items-center space-x-2">
@@ -199,9 +199,9 @@ export default function Component() {
           </div>
         </div>
 
-        <Card className="lg:w-2/3 shadow-sm">
+        <Card className="lg:w-2/3 shadow-sm bg-slate-900">
           <CardHeader className="py-3">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="text-lg flex items-center gap-2 text-white">
               <MessageSquare className="w-5 h-5" />
               Message Log
             </CardTitle>
