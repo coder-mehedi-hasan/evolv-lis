@@ -15,23 +15,24 @@ import { rabbitmqInfo } from './constant';
 import { MessageBroker } from "./lib/message-broker";
 import { Parser } from "./lib/parser";
 import { DirectoryWatcher } from "./lib/watcher";
+import { app } from 'electron';
 
 // import rabbitmq from 'amqplib';
 // const socket = new WebSocket('http://localhost:3000');
 const order = new Order();
-const reportStoragePath = path.resolve('data/evolv/reports');
-const orderStoragePath = path.resolve('data/evolv/orders');
+const reportStoragePath = 'evolv/reports';
+const orderStoragePath = 'evolv/orders';
 const rabbitmq = require('amqplib');
 const db: DB = new DB('reports');
 const ordersWatcher = new DirectoryWatcher(orderStoragePath);
 const reportsWatcher = new DirectoryWatcher(reportStoragePath);
 const messageBroker = new MessageBroker(rabbitmqInfo.connectionKey);
-const parser = new Parser()
+const parser = new Parser();
+
 
 
 export async function server() {
-
-  console.log(rabbitmqInfo.connectionKey);
+ // const dataPath = await ipcRenderer.invoke('get-data-folder-path');
 
 
   // console.log(ipcRenderer)

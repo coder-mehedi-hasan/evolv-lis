@@ -3,6 +3,7 @@ import { ReadlineParser } from '@serialport/parser-readline'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import { SerialPort } from 'serialport'
+import fs from 'fs';
 require('dotenv').config();
 
 
@@ -21,14 +22,14 @@ function createWindow(): void {
     width: 1024,
     height: 800,
     webPreferences: {
-        devTools: inDevelopment,
-        contextIsolation: true,
-        nodeIntegration: true,
-        nodeIntegrationInSubFrames: false,
-        preload: preload,
+      devTools: inDevelopment,
+      contextIsolation: true,
+      nodeIntegration: true,
+      nodeIntegrationInSubFrames: false,
+      preload: preload,
     },
     // titleBarStyle: "hidden",
-});
+  });
 
   // Create the browser window.
   // const mainWindow = new BrowserWindow({
@@ -200,6 +201,15 @@ ipcMain.handle('send-data', async (_event, data: string) => {
     })
   })
 })
+
+ipcMain.handle('get-data-folder-path', async () => {
+  const dataFolderPath = join(app.getPath('userData'), 'data');
+  if (!fs.existsSync(dataFolderPath)) {
+    fs.mkdirSync(dataFolderPath, { recursive: true });
+  }
+  return dataFolderPath;  // Return the path to the renderer process
+});
+
 
 // Clean up on app quit
 app.on('before-quit', () => {

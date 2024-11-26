@@ -1,4 +1,6 @@
 import path from "path";
+import { ipcRenderer } from 'electron';
+import fs from 'fs';
 const sqlite3 = require('sqlite3').verbose();
 
 type storeType = {
@@ -6,12 +8,21 @@ type storeType = {
     value: string
 }
 const rootPath = path.resolve();
-const db = new sqlite3.Database(rootPath + '/db.db');
 export class DB {
-    private data: storeType[] = [];
-
+    db: any
     constructor(table: string) {
-        this.checkAndCreateTable(table)
+        ipcRenderer.invoke("get-data-folder-path").then((systemPath) => {
+            const dataFolderPath = path.join(systemPath, 'db');
+            if (!fs.existsSync(dataFolderPath)) {
+                fs.mkdirSync(dataFolderPath, { recursive: true });
+            }
+            const dbPath = path.join(dataFolderPath, "db.db");
+            if (!fs.existsSync(dbPath)) {
+                fs.writeFileSync(dbPath, "");
+            }
+            this.db = new sqlite3.Database(dbPath);
+            this.checkAndCreateTable(table);
+        })
         // db.run(`CREATE TABLE reports(key TEXT, value TEXT)`);
     }
 
@@ -22,7 +33,7 @@ export class DB {
             throw new Error("Key should be unique");
         }
         // const response = this.data.push(payload);
-        const stmt = db.prepare("INSERT INTO reports(key, value) VALUES (?, ?)");
+        const stmt = this.db.prepare("INSERT INTO reports(key, value) VALUES (?, ?)");
         stmt.run(payload.key, payload.value);
         stmt.finalize();
         return payload;
@@ -37,12 +48,12 @@ export class DB {
         return data;
     }
 
-    async findOne(value:string) {
+    async findOne(value: string) {
         const sql = "SELECT * FROM reports WHERE value = ?";
         const params = [value];
         try {
             const report = await this.fetchFirst(sql, params);
-            console.log("Report of deliverded ",report);
+            console.log("Report of deliverded ", report);
         } catch (error) {
             console.error("Error fetching report:", error);
         }
@@ -50,7 +61,7 @@ export class DB {
 
     private async fetchAll(sql: string) {
         return new Promise((resolve, reject) => {
-            db.all(sql, (err: Error, rows: any) => {
+            this.db.all(sql, (err: Error, rows: any) => {
                 if (err) reject(err);
                 resolve(rows);
             });
@@ -59,7 +70,7 @@ export class DB {
 
     private async fetchFirst(sql: string, params: any[]) {
         return new Promise((resolve, reject) => {
-            db.get(sql, params, (err: any, row: any) => {
+            this.db.get(sql, params, (err: any, row: any) => {
                 if (err) reject(null);
                 resolve(row);
             });
@@ -67,7 +78,7 @@ export class DB {
     };
 
     private checkAndCreateTable(tableName: string) {
-        db.get(
+        this.db.get(
             `SELECT name FROM sqlite_master WHERE type='table' AND name=?`,
             [tableName],
             (err: Error, row: any) => {
@@ -88,7 +99,7 @@ export class DB {
           CREATE TABLE ${tableName}(key TEXT, value TEXT);
         `;
 
-        db.run(createTableSQL, (err: Error) => {
+        this.db.run(createTableSQL, (err: Error) => {
             if (err) {
                 console.error('Error creating table:', err.message);
             }

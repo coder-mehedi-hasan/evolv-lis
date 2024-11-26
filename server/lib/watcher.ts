@@ -1,6 +1,8 @@
 import { watch } from "fs";
 import fs from "fs";
-import path from "path";
+import { join } from "path";
+import { ipcRenderer } from 'electron';
+
 
 
 export class DirectoryWatcher {
@@ -11,8 +13,16 @@ export class DirectoryWatcher {
     }
 
     constructor(path: string) {
-        this.path = path;
+        // this.path = path;
+        ipcRenderer.invoke("get-data-folder-path").then((systemPath) => {
+            const dataFolderPath = join(systemPath, path);
+            if (!fs.existsSync(dataFolderPath)) {
+                fs.mkdirSync(dataFolderPath, { recursive: true });
+            }
+            this.path = dataFolderPath;
+        })
     }
+
 
     public async run(addCallback?: (content: string, fileName: string) => void, renameCallback?: (fileName: string) => void) {
         try {
@@ -20,7 +30,7 @@ export class DirectoryWatcher {
                 const fileName = name?.toString() as string;
                 switch (eventType) {
                     case this.events.change:
-                        const pathOfFile = path.join(this.path, fileName);
+                        const pathOfFile = join(this.path, fileName);
                         if (addCallback) {
                             fs.readFile(pathOfFile, 'utf8', (err, data) => {
                                 if (err) {
