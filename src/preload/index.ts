@@ -3,8 +3,22 @@ import { electronAPI } from '@electron-toolkit/preload'
 // import exposeContexts from '../renderer/src/';
 import { server } from '../../server';
 import Order from '../../server/lib/order';
+import path from "path";
+import fs from "fs";
 const order: Order = new Order();
 
+
+const savedInputOutput = (data: string, suffix: string) => {
+  ipcRenderer.invoke("get-data-folder-path").then((systemPath) => {
+    const name = `${new Date().getFullYear()}_${new Date().getMonth() + 1}_${new Date().getDate()}_${suffix}.txt`;
+    const storePath = 'output'
+    const dataFolderPath = path.join(systemPath, storePath);
+    if (!fs.existsSync(dataFolderPath)) {
+      fs.mkdirSync(dataFolderPath, { recursive: true });
+    }
+    fs.appendFileSync(path.join(dataFolderPath, name), data?.concat('\n'), "utf8");
+  })
+}
 
 // Custom APIs for renderer
 const api = {
@@ -15,15 +29,19 @@ const api = {
   disconnectPort: () => ipcRenderer.invoke('disconnect-port'),
   // Send data
   sendData: (data: string) => {
-    console.log("sending test", data)
+    savedInputOutput(data, "S");
     return ipcRenderer.invoke('send-data', data);
   },
   // Listen for incoming data
   onReceiveData: (callback: (data: string) => void) => {
     ipcRenderer.on('serial-data', (_event, data) => {
       order.report.add(data);
-      console.log("Data", data)
+      console.log("Data", data);
+      savedInputOutput(data, "R");
       // receiveMessageToServer(data);
+      // ipcRenderer.invoke("get-data-folder-path").then((systemPath) => {
+
+      // })
       callback(data)
     });
 
